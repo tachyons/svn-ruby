@@ -2,7 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'net/http'
 require 'uri'
-require_relative 'revision'
+# require_relative 'revision'
 
 
 module SVN

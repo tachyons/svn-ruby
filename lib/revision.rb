@@ -1,3 +1,5 @@
+require_relative 'svn'
+
 module SVN
   class Revision
     attr_accessor :author,:date,:message,:revision_no
