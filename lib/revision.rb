@@ -13,7 +13,10 @@ module SVN
       end
       return revisions
     end
-    def list
+    def self.find_by_revision_number(revision_no)
+      xml=SVN.get_log(revision_no)
+      doc = Nokogiri::XML(xml)
+      SVN::Revision.make_from_xml_doc(doc).first
     end
   end
 end

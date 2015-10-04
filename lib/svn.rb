@@ -81,7 +81,13 @@ module SVN
   def self.delete(file)
     SVN.execute("delete #{file}")
   end
-
+  # Get log
+  def self.logs
+    SVN.execute("log")
+  end
+  def self.get_log(revision_no)
+      SVN.execute("log -r #{revision_no} --xml")
+  end
   private
 
   def self.execute(command)
