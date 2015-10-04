@@ -85,8 +85,12 @@ module SVN
   def self.logs
     SVN.execute("log")
   end
+  # get a log of a particualr revision
   def self.get_log(revision_no)
       SVN.execute("log -r #{revision_no} --xml")
+  end
+  def self.search(search_term)
+    SVN.execute("log --search #{search_term} --xml")
   end
   private
 

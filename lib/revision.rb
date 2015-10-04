@@ -18,5 +18,10 @@ module SVN
       doc = Nokogiri::XML(xml)
       SVN::Revision.make_from_xml_doc(doc).first
     end
+    def self.search(search_term)
+      xml=SVN.search(search_term)
+      doc = Nokogiri::XML(xml)
+      SVN::Revision.make_from_xml_doc(doc)
+    end
   end
 end
