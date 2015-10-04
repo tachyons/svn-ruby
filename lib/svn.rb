@@ -89,8 +89,19 @@ module SVN
   def self.get_log(revision_no)
       SVN.execute("log -r #{revision_no} --xml")
   end
+  #search string
   def self.search(search_term)
     SVN.execute("log --search #{search_term} --xml")
+  end
+
+  #TODO
+  def self.make_branch(branch_name)
+  end
+  def self.make_tag(tag_name)
+  end
+  def tags
+  end
+  def branches
   end
   private
 
