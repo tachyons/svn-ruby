@@ -94,14 +94,47 @@ module SVN
     SVN.execute("log --search #{search_term} --xml")
   end
 
-  #TODO
+  #copy the repo
+  def self.copy(source,destination,message="")
+    puts "svn copy #{source} #{destination} -m '#{message}''"
+    `svn copy #{source} #{destination} -m '#{message}'`
+  end
+  def self.information
+    SVN.execute("info --xml")
+  end
+  def self.url
+    xml=self.information
+    doc = Nokogiri::XML(xml)
+    url=doc.css("url").first.content
+    return url
+  end
+  def self.root_url
+    xml=self.information
+    doc = Nokogiri::XML(xml)
+    url=doc.css("root").first.content
+    return url
+  end
+  def self.branches_path(branch_name)
+    self.root_url+"/branches/"+branch_name
+  end
+  def self.tags_path(tag_name)
+    self.root_url+"/tags/"+tag_name
+  end
+  def self.trunk_path
+    self.root_url+"/trunk"
+  end
   def self.make_branch(branch_name)
+    self.copy(trunk_path,branches_path(branch_name),"created the branch #{branch_name}")
   end
   def self.make_tag(tag_name)
+    self.copy(trunk_path,tags_path(tags),"created the tag #{tag_name}")
   end
   def tags
+    []
   end
   def branches
+    xml=SVN.execute("info --xml --depth=immediates ^/tags^C")
+    []
   end
   private
 

@@ -6,3 +6,20 @@
     <msg>Fixes 100</msg>
   </logentry>
 </log>
+<?xml version="1.0" encoding="UTF-8"?>
+  <info>
+    <entry    kind="dir"n   path="/home/tachyons/projects/interim-test-svn"n   revision="9">
+      <url>svn+ssh://tachyonsvyd@svn.code.sf.net/p/interim-test/svn/trunk</url>
+      <relative-url>^/trunk</relative-url>
+      <repository>
+        <root>svn+ssh://tachyonsvyd@svn.code.sf.net/p/interim-test/svn
+        </root> <uuid>24248838-ff64-4fa2-a12c-f88480150c40</uuid>
+      </repository>
+      <wc-info>
+        <wcroot-abspath>/home/tachyons/projects/interim-test-svn</wcroot-abspath>
+        <schedule>normal</schedule> <depth>infinity</depth>
+      </wc-info>
+      <commit    revision="9">
+         <author>tachyonsvyd</author>
+         <date>2015-09-26T17:59:18.463272Z</date>
+       </commit> </entry> </info> " 
