@@ -8,7 +8,7 @@ require 'uri'
 module SVN
 
   class << self
-    attr_accessor :username, :password,:path
+    attr_accessor :username, :password,:path,:verified_path
   end
 
   # Returns a string to be passed into commands containing authentication options
@@ -127,22 +127,36 @@ module SVN
     self.copy(trunk_path,branches_path(branch_name),"created the branch #{branch_name}")
   end
   def self.make_tag(tag_name)
-    self.copy(trunk_path,tags_path(tags),"created the tag #{tag_name}")
+    self.copy(trunk_path,tags_path(tag_name),"created the tag #{tag_name}")
   end
-  def tags
+  def self.merge_revision_from_path(revision_no,path)
+    self.update
+    SVN.execute("merge -c #{revision_no} #{path}","verified")
+    # SVN.execute("merge -c #{revision_no} #{path} --dry-run")
+  end
+  def self.merge_revision_from_verified(revision_no)
+    self.merge_revision_from_path(revision_no,trunk_path)
+  end
+  def self.update
+    SVN.execute(" up ")
+  end
+  def self.tags
     []
   end
-  def branches
+  def self.branches
     xml=SVN.execute("info --xml --depth=immediates ^/tags^C")
     []
   end
   private
 
-  def self.execute(command)
+  def self.execute(command,source="trunk")
     if @path.nil?
       return %x{svn #{command} #{SVN.authentication_details}}
-    else
+    elsif source =="trunk"
       return %x{svn #{command} #{SVN.authentication_details} #{@path}}
+    elsif source=="verified"and !@verified_path.nil?
+      puts "svn #{command} #{SVN.authentication_details} #{@verified_path}"
+      return %x{svn #{command} #{SVN.authentication_details} #{@verified_path}}
     end
   end
 
