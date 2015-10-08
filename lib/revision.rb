@@ -25,5 +25,8 @@ module SVN
       doc = Nokogiri::XML(xml)
       SVN::Revision.make_from_xml_doc(doc)
     end
+    def to_verified
+      SVN.merge_revision_from_verified(self.revision_no)
+    end
   end
 end

@@ -135,14 +135,16 @@ module SVN
   end
   def self.merge_revision_from_path(revision_no,path)
     self.update
+    self.update("verified")
     SVN.execute("merge -c #{revision_no} #{path}","verified")
+    # TODO commit
     # SVN.execute("merge -c #{revision_no} #{path} --dry-run")
   end
   def self.merge_revision_from_verified(revision_no)
     self.merge_revision_from_path(revision_no,trunk_path)
   end
-  def self.update
-    SVN.execute(" up ")
+  def self.update(source="trunk")
+    SVN.execute(" up ",source)
   end
   def self.tags
     []
