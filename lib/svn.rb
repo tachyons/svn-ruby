@@ -14,7 +14,11 @@ module SVN
   # Returns a string to be passed into commands containing authentication options
   # Requires setting of username and password via attr_accessor methods
   def self.authentication_details
-    "--username #{@username} --password #{@password}"
+    if @username.to_s.empty? || password.to_s.empty?
+      ""
+    else
+      "--username #{@username} --password #{@password}"
+    end
   end
 
   # Returns an array representing the current status of any new or modified files
@@ -151,8 +155,10 @@ module SVN
 
   def self.execute(command,source="trunk")
     if @path.nil?
+      puts "svn #{command} #{SVN.authentication_details}"
       return %x{svn #{command} #{SVN.authentication_details}}
     elsif source =="trunk"
+      puts "svn #{command} #{SVN.authentication_details} #{@path}"
       return %x{svn #{command} #{SVN.authentication_details} #{@path}}
     elsif source=="verified"and !@verified_path.nil?
       puts "svn #{command} #{SVN.authentication_details} #{@verified_path}"
